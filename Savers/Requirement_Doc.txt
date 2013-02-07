@@ -1,0 +1,21 @@
+Hello Sir,
+
+
+Requirements for Hand held device(Smart phone)
+
+Hand held device(smart phone)should have following funcitonalities.
+
+mapping, 
+route optimization
+capture GPS data  - to measure route of  actual v. planned by route/driver (this data should be real time and can be tracked by web app)
+
+A file containing the following information will in be made available on a daily and as needed 
+
+Unique record ID
+Donor name, address, city, state, zip
+NPP (name of Non-Profit Partner)
+Donation source (email, solicitor, etc) 
+Any volume or other identifying data about the donation (requires 2 person load, etc)
+Pickup date (for verification purposes)
+route identifier
+
