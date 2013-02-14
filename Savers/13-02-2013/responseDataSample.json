@@ -1,0 +1,128 @@
+response = {
+	// header will exist in all responses and its format will always contain at least the current set of elements
+	"header": {
+			"version":1							// data layout version
+			,"messageType":"trip"				// layout format to expect in the "data" element
+			,"processingTime":87				// server processing time
+			,"created":"2013-02-11 09:00:00"	// timestamp when the "data" elements and values were created in UTC
+			,"message":"" 						// free-form notification / error to deliver to the user
+		}
+	// "data" will always exist -- but it may be empty and its format is determined by the "header" element of "messageType"
+	,"data": {
+		"id":13579								// trip identifier for backend processing (not visible to the user )
+		,"pro":1234456							// Trip identifier visible to the driver
+		// "stops" will be all stops that the driver will be participating on during a trip
+		,"stops": [
+			{
+				"id":13456						// stop identifier for backend processing
+				,"stopNumber":1					// stop order sequence
+				,"stopType":"Pickup"			// Type of stop for driver reference
+				,"name":"Jonas Show Warehouse"	// name of stop location
+				,"street":"33 W. Main St"		// street address for stop location
+				,"city":"Eaton"					// city for stop location
+				,"locality":"OH"				// state for stop location
+				,"postal":"54321-5544"			// postal code -- note that this data may have non-numeric characters in it
+				// Geolocation data for a stop -- for filtering the stop list for the driver 
+				,"geolocation": {
+					"longitude":-82.838398		// longitude in decimal degrees
+					,"latitude":41.673639		// latitude in decimal degrees
+					,"radius":2500				// geofence radius in feet
+				}
+				// Purchase Orders associated with the stop
+				,"po": [
+					"AS3872"
+					,"TG525265"
+				]
+				// Activities for a driver to perform at a stop ( in array order )
+				,"activites": [
+					{
+						"label":"Begin Loading"			// Label for activity 
+						,"activityName":"beginLoading"	// object name for activity data on return to host
+					}
+					,{
+						"label":"End Loading"
+						,"activityName":"endLoading"
+						// Form fields for the driver when the activity is activated
+						// Only dataType, fieldName, and label will always be included
+						// suggestted dataTypes to support initially: 
+						// integer, float, string, image, signature, barcode
+						// 
+						// Other elements are optional (listed with preferred default value)
+						// required (false), readOnly (false), fieldValue ( null )
+						,"fields": [
+							{
+								"dataType":"string"
+								,"fieldName":"seal"		// field to report back to host with associated value
+								,"label":"Seal"			// Label for field in UI
+							}
+						]
+						
+					}
+				]
+			}
+			,{
+				"id":13457
+				,"stopType":"Delivery"
+				,"stopNumber":2
+				,"name":"Fancy Shoe Store"
+				,"street":"16525 Maple Pkwy"
+				,"locality":"MO"
+				,"postal":44672
+				,"city":"Springfield"
+				,"geolocation": {
+					"longitude":-97.838398
+					,"radius":2300
+					,"latitude":41.673639
+				}
+				,"po": [
+					"AS3872"
+					,"TG525265"
+				]
+				,"activites": [
+					{
+						"label":"Begin Unloading"
+						,"activityName":"beginUnloading"
+					}
+					,{
+						"label":"End Unloading"
+						,"activityName":"endUnloading"
+						"fields": [
+							{
+								"label":"Pallet Count"
+								,"fieldName":"pallets"
+								,"required":true
+								,"dataType":"integer"
+								,"fieldValue":17
+							}
+							,{
+								"label":"Damaged"
+								,"fieldName":"isDamaged"
+								,"required":true
+								,"dataType":"boolean"
+								,"readOnly":false
+								,"fieldValue":"N"
+							}
+							,{
+								"label":"Damage Photo"
+								,"fieldName":"damagePhoto"
+								,"required":false
+								,"dataType":"image"
+							}
+							,{
+								"label":"Damage Barcode"
+								,"fieldName":"damageBarcode"
+								,"dataType":"barcode"
+							}
+							,{
+								"label":"Proof of Delivery"
+								,"fieldName":"podSignature"
+								,"dataType":"signature"
+							}
+						]
+						
+					}
+				]
+			}
+		]
+	}
+}
